@@ -1,12 +1,11 @@
 <a href="https://www.hardwario.com/"><img src="https://www.hardwario.com/ci/assets/hw-logo.svg" width="200" alt="HARDWARIO Logo" align="right"></a>
 
-# Firmware for HARDWARIO Wireless Pulse Counter
+# Firmware for HARDWARIO chester tester
 
-[![build](https://github.com/hardwario/twr-radio-pulse-counter/actions/workflows/main.yml/badge.svg)](https://github.com/hardwario/twr-radio-pulse-counter/actions/workflows/main.yml)
-[![License](https://img.shields.io/github/license/bigclownlabs/bcf-wireless-pulse-counter.svg)](https://github.com/bigclownlabs/bcf-wireless-pulse-counter/blob/master/LICENSE)
-[![Twitter](https://img.shields.io/twitter/follow/hardwario_en.svg?style=social&label=Follow)](https://twitter.com/hardwario_en)
+Measuring current from DC/DC pulse counter
 
-This repository contains firmware for wireless pulse counter project.
+- Core Module
+- Sensor Module (input C)
 
 ## Introduction
 

@@ -1,0 +1,37 @@
+
+
+175 uA klidová spotřeba
+# 159.52 <D> pulses: 358
+# 160.52 <D> pulses: 355
+# 161.52 <D> pulses: 352
+# 168.52 <D> pulses: 354
+# 169.52 <D> pulses: 354
+# 170.52 <D> pulses: 352
+# 171.52 <D> pulses: 358
+# 172.52 <D> pulses: 358
+# 173.52 <D> pulses: 350
+# 174.52 <D> pulses: 358
+
+11000 ohm
++300uA
+# 184.52 <D> pulses: 1311
+# 185.52 <D> pulses: 1354
+# 187.52 <D> pulses: 1328
+# 188.52 <D> pulses: 1329
+# 189.52 <D> pulses: 1328
+
+6800 ohm
++500uA
+# 177.52 <D> pulses: 1937
+# 178.52 <D> pulses: 1935
+# 179.52 <D> pulses: 1915
+# 180.52 <D> pulses: 1916
+# 181.52 <D> pulses: 1932
+
+
+980 ohm
++3.8 mA
+# 192.52 <D> pulses: 12170
+# 193.52 <D> pulses: 12040
+# 194.52 <D> pulses: 12038
+# 195.52 <D> pulses: 12030
