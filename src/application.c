@@ -32,15 +32,6 @@ void application_init(void)
 
 	twr_led_init(&app.led, TWR_GPIO_LED, false, false);
 
-	twr_pulse_counter_init(TWR_MODULE_SENSOR_CHANNEL_C, TWR_PULSE_COUNTER_EDGE_FALL);
-	//twr_pulse_counter_set_event_handler(TWR_MODULE_SENSOR_CHANNEL_A, pulse_counter_event_handler, NULL);
-
-    //twr_module_sensor_set_mode(TWR_MODULE_SENSOR_CHANNEL_B, TWR_MODULE_SENSOR_MODE_INPUT);
-    //twr_module_sensor_set_pull(TWR_MODULE_SENSOR_CHANNEL_B, TWR_MODULE_SENSOR_PULL_NONE);
-
-/*
-    // Cannot get it to work properly in counter mode
-
     // Sensor channel C to TIM3_CH1
     twr_gpio_set_mode(TWR_GPIO_P7, TWR_GPIO_MODE_ALTERNATE_2);
 
@@ -60,13 +51,15 @@ void application_init(void)
     // Set external clock mode to SMS, TS trigger selection TI1 edge
     TIM3->SMCR = TIM_SMCR_SMS_Msk | (TIM_SMCR_TS_2 | TIM_SMCR_TS_0);
 
+    // Remap TI1 to PA6
+    TIM3->OR = TIM3_OR_TI1_RMP;
+
     // Enable counter
     TIM3->CR1 |= TIM_CR1_CEN;
-*/
+
     twr_led_pulse(&app.led, 2000);
 
     twr_system_pll_enable();
-
 
     twr_module_lcd_init();
     app.gfx = twr_module_lcd_get_gfx();
@@ -76,8 +69,8 @@ void application_task(void *param)
 {
 	(void) param;
 
-    uint32_t pulses = twr_pulse_counter_get(TWR_MODULE_SENSOR_CHANNEL_C);
-    twr_pulse_counter_reset(TWR_MODULE_SENSOR_CHANNEL_C);
+    uint32_t pulses = TIM3->CNT;
+    TIM3->CNT = 0;
 
     float current_ua = 0.327955f * (float)pulses - 20.0f; // 69.4696;
 
@@ -102,13 +95,6 @@ void application_task(void *param)
 
         twr_module_lcd_update();
     }
-
-/*
-    uint32_t channel_count_a = TIM3->CNT;
-    uint32_t channel_count_b = TIM3->CCR1;
-    twr_log_debug("pulses: %d, %d", channel_count_a, channel_count_b);
-*/
-
 
     twr_scheduler_plan_current_relative(1000);
 }
