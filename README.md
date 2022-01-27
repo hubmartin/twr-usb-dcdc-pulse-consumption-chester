@@ -6,10 +6,13 @@ Measuring current from DC/DC pulse counter
 
 - Core Module
 - Sensor Module (input C)
+- LCD Module (optional)
 
-## Introduction
+Sends data over USB. Firmware is not low power.
 
-The optical sensor is connected to channel A on the sensor module. The number of pulses is sent every 5 minutes.
+`# 494.50 <D> pulses: 484, current(A): 0.000139`
+
+![](lcd.jpg)
 
 ## Hardware
 
@@ -17,7 +20,6 @@ The following hardware components are used for this project:
 
 * **[Sensor Module](https://shop.bigclown.com/sensor-module)**
 * **[Core Module](https://shop.bigclown.com/core-module)**
-* **[Mini Battery Module](https://shop.bigclown.com/mini-battery-module)**
 
 ## License
 
