@@ -3,6 +3,7 @@
 static struct
 {
     twr_led_t led;
+    twr_gfx_t *gfx;
 } app;
 
 void pulse_counter_event_handler(twr_module_sensor_channel_t channel, twr_pulse_counter_event_t event, void *event_param);
@@ -16,6 +17,11 @@ C - P7.
 PA4
 PA5
 PA6 - TIM3 CH1
+
+Works properly from 0 - 50mA
+
+Over 50mA the DC/DC switches faster in chunks and device is not able
+to track signal so fast.
 
 */
 
@@ -58,6 +64,12 @@ void application_init(void)
     TIM3->CR1 |= TIM_CR1_CEN;
 */
     twr_led_pulse(&app.led, 2000);
+
+    twr_system_pll_enable();
+
+
+    twr_module_lcd_init();
+    app.gfx = twr_module_lcd_get_gfx();
 }
 
 void application_task(void *param)
@@ -73,11 +85,30 @@ void application_task(void *param)
 
     twr_log_debug("pulses: %ld, current(A): %.6f", pulses, current_amps);
 
+    if(twr_gfx_display_is_ready(app.gfx))
+    {
+        twr_gfx_clear(app.gfx);
+        twr_gfx_set_font(app.gfx, &twr_font_ubuntu_24);
+
+        char str[32];
+
+        snprintf(str, sizeof(str), "%.3f mA", current_amps * 1000.f);
+        twr_gfx_draw_string(app.gfx, 5, 5, str, true);
+
+        snprintf(str, sizeof(str), "%ld pulses", pulses);
+        twr_gfx_draw_string(app.gfx, 5, 35, str, true);
+
+        twr_gfx_draw_string(app.gfx, 5, 85, "Input ch C", true);
+
+        twr_module_lcd_update();
+    }
+
 /*
     uint32_t channel_count_a = TIM3->CNT;
     uint32_t channel_count_b = TIM3->CCR1;
-
     twr_log_debug("pulses: %d, %d", channel_count_a, channel_count_b);
 */
+
+
     twr_scheduler_plan_current_relative(1000);
 }
