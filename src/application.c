@@ -88,7 +88,7 @@ void application_task(void *param)
         snprintf(str, sizeof(str), "%.3f mA", current_amps * 1000.f);
         twr_gfx_draw_string(app.gfx, 5, 5, str, true);
 
-        snprintf(str, sizeof(str), "%ld pulses", pulses);
+        snprintf(str, sizeof(str), "%ld pps", pulses);
         twr_gfx_draw_string(app.gfx, 5, 35, str, true);
 
         twr_gfx_draw_string(app.gfx, 5, 85, "Input ch C", true);
