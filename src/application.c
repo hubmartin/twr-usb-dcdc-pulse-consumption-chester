@@ -76,7 +76,14 @@ void application_task(void *param)
 
     float current_amps = current_ua / 1e6f;
 
-    twr_log_debug("pulses: %ld, current(A): %.6f", pulses, current_amps);
+    if (current_amps < 0.0f)
+    {
+        current_amps = 0.0f;
+    }
+
+    char buf[64];
+    snprintf(buf, sizeof(buf), "@pulses: %ld, current(A): %.6f\r\n", pulses, current_amps);
+    twr_uart_write(TWR_UART_UART2, buf, strlen(buf));
 
     if(twr_gfx_display_is_ready(app.gfx))
     {
