@@ -6,9 +6,20 @@ static struct
     twr_gfx_t *gfx;
 } app;
 
+float adc_voltage_v[2];
+
+twr_fifo_t tx_fifo;
+twr_fifo_t rx_fifo;
+uint8_t tx_fifo_buffer[64];
+uint8_t rx_fifo_buffer[64];
+
 void pulse_counter_event_handler(twr_module_sensor_channel_t channel, twr_pulse_counter_event_t event, void *event_param);
 
 /*
+
+ADC
+P0
+P1
 
 A - P4/A4/DAC0,
 B - P5/A5/DAC1
@@ -25,12 +36,40 @@ to track signal so fast.
 
 */
 
+static void _adc_event_handler(twr_adc_channel_t channel, twr_adc_event_t event, void *param)
+{
+    (void) channel;
+    (void) param;
+
+    if (event == TWR_ADC_EVENT_DONE)
+    {
+        float voltage;
+        switch(channel)
+        {
+            case TWR_ADC_CHANNEL_A0:
+            twr_adc_async_get_voltage(TWR_ADC_CHANNEL_A0, &adc_voltage_v[0]);
+            break;
+
+            case TWR_ADC_CHANNEL_A1:
+            twr_adc_async_get_voltage(TWR_ADC_CHANNEL_A1, &adc_voltage_v[1]);
+            break;
+
+            default:
+            break;
+        }
+    }
+}
+
 
 void application_init(void)
 {
     twr_log_init(TWR_LOG_LEVEL_DEBUG, TWR_LOG_TIMESTAMP_ABS);
 
 	twr_led_init(&app.led, TWR_GPIO_LED, false, false);
+
+    twr_adc_init();
+    twr_adc_set_event_handler(TWR_ADC_CHANNEL_A0, _adc_event_handler, NULL);
+    twr_adc_set_event_handler(TWR_ADC_CHANNEL_A1, _adc_event_handler, NULL);
 
     // Sensor channel C to TIM3_CH1
     twr_gpio_set_mode(TWR_GPIO_P7, TWR_GPIO_MODE_ALTERNATE_2);
@@ -84,6 +123,12 @@ void application_task(void *param)
     char buf[64];
     snprintf(buf, sizeof(buf), "@pulses: %ld, current(A): %.6f\r\n", pulses, current_amps);
     twr_uart_write(TWR_UART_UART2, buf, strlen(buf));
+
+    snprintf(buf, sizeof(buf), "@adc (V) P0: %.6f, P1: %.6f\r\n", adc_voltage_v[0], adc_voltage_v[1]);
+    twr_uart_write(TWR_UART_UART2, buf, strlen(buf));
+
+    twr_adc_async_measure(TWR_ADC_CHANNEL_A0);
+    twr_adc_async_measure(TWR_ADC_CHANNEL_A1);
 
     if(twr_gfx_display_is_ready(app.gfx))
     {
