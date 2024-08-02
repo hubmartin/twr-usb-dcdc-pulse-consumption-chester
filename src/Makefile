@@ -87,14 +87,14 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester/CMakeFiles /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(CMAKE_COMMAND) -E cmake_progress_start /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester/CMakeFiles /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester/src//CMakeFiles/progress.marks
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,31 +103,18 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
-
-#=============================================================================
-# Target rules for targets named firmware
-
-# Build rule for target.
-firmware: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 firmware
-.PHONY : firmware
-
-# fast build rule for target.
-firmware/fast:
-	$(MAKE) $(MAKESILENT) -f sdk/CMakeFiles/firmware.dir/build.make sdk/CMakeFiles/firmware.dir/build
-.PHONY : firmware/fast
 
 # Help Target
 help:
@@ -137,7 +124,6 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... firmware"
 .PHONY : help
 
 
@@ -149,6 +135,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/martin/Hardwario/BigClown/twr-usb-dcdc-pulse-consumption-chester && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
